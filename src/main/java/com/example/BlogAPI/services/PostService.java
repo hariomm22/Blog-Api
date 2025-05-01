@@ -56,13 +56,14 @@ public class PostService {
         return postRepository.save(existingPost);
     }
 
-    public String deletePost(int id,int userId) {
+    public Post deletePost(int id,int userId) {
         Post existingPost = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found with id " + id));
          if(existingPost.getUser().getId()!=userId) {
              throw new IllegalArgumentException("User is not permitted to perform this operation on post ID: " + id);
         }
         postRepository.deleteById(id);
-        return "User deleted done..!";
+        
+        return existingPost;
     }
 }

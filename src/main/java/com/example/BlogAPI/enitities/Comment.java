@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -19,10 +20,12 @@ public class Comment {
 	int id;
 	String content;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "post_id", nullable = false)
 	Post post;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", nullable = false)
 	User user;
 	
 	@Column(updatable = false)

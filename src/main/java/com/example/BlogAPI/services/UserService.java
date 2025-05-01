@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.BlogAPI.enitities.Post;
 import com.example.BlogAPI.enitities.User;
 import com.example.BlogAPI.repositories.UserRepository;
  
@@ -29,15 +30,27 @@ public class UserService {
         return userRepository.findAll();
     }
 
-     public User updateUser(int id, User updatedUser) {
-        User user = getUserById(id);
-        user.setName(updatedUser.getName());
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
-        return userRepository.save(user);
-    }
+     public User updateUser(int id, User updatedUser) {  
+    	 
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+        if (updatedUser.getName() != null) {
+            existingUser.setName(updatedUser.getName());
+        }
 
-     public void deleteUser(int id) {
+        if (updatedUser.getEmail() != null) {
+            existingUser.setEmail(updatedUser.getEmail());
+        }
+        if (updatedUser.getPassword() != null) {
+            existingUser.setPassword(updatedUser.getPassword());
+        }
+        return userRepository.save(existingUser);
+     }
+
+     public User deleteUser(int id) {
+         User user = userRepository.findById(id)
+                 .orElseThrow(() -> new RuntimeException("User not found with id " + id));
         userRepository.deleteById(id);
+        return user;
     }
 }

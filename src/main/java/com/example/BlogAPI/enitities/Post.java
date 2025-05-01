@@ -3,6 +3,8 @@ package com.example.BlogAPI.enitities;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.CascadeType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
  
 
@@ -30,7 +33,9 @@ public class Post {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE) 
 	User user;
 
 	public Post() {

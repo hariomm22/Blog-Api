@@ -3,6 +3,8 @@ package com.example.BlogAPI.enitities;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,25 +12,42 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
  
 
+
 @Entity
-@Table(name ="likes")
+@Table(
+    name = "likes",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"post_id", "user_id"})}
+)
 public class Like {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	long likeCount;
+ 
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+//    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
+//    @JoinColumn(name = "post_id", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)     // old one
+	@ManyToOne
+	@JoinColumn(name = "post_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE) 
 	Post post;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	User User;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE) 
+	User user;
 	
+//    @ManyToOne
+//	@JoinColumn(name = "user_id", nullable = false)   Take from post entity
+//	@OnDelete(action = OnDeleteAction.CASCADE) 
+    
 	@Column(updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -38,12 +57,11 @@ public class Like {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Like(int id, long likeCount, Post post, com.example.BlogAPI.enitities.User user) {
+	public Like(int id , Post post, com.example.BlogAPI.enitities.User user) {
 		super();
 		this.id = id;
-		this.likeCount = likeCount;
 		this.post = post;
-		User = user;
+		this.user = user;
 	}
 
 	public int getId() {
@@ -54,13 +72,6 @@ public class Like {
 		this.id = id;
 	}
 
-	public long getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(long likeCount) {
-		this.likeCount = likeCount;
-	}
 
 	public Post getPost() {
 		return post;
@@ -71,11 +82,19 @@ public class Like {
 	}
 
 	public User getUser() {
-		return User;
+		return user;
 	}
 
 	public void setUser(User user) {
-		User = user;
+		this.user = user;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	
