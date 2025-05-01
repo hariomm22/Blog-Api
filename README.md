@@ -14,6 +14,8 @@ A RESTful Blog API built with Spring Boot, designed for managing users, posts, c
 - Maven
 - Postman (for testing APIs)
 
+- Change Application.properties file as per you db 
+
 ---
 
 ## Features
