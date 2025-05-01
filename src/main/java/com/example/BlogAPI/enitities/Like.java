@@ -12,10 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+ 
 
 @Entity
 @Table(name ="likes")
-public class like {
+public class Like {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,19 +32,18 @@ public class like {
 	@Column(updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-	
 
-	public like() {
+	public Like() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public like(int id, long likeCount, Post postId, User user) {
+	public Like(int id, long likeCount, Post post, com.example.BlogAPI.enitities.User user) {
 		super();
 		this.id = id;
 		this.likeCount = likeCount;
-		this.post= post;
-		User= user;
+		this.post = post;
+		User = user;
 	}
 
 	public int getId() {
@@ -66,7 +66,7 @@ public class like {
 		return post;
 	}
 
-	public void setPostId(Post post) {
+	public void setPost(Post post) {
 		this.post = post;
 	}
 
@@ -74,9 +74,11 @@ public class like {
 		return User;
 	}
 
-	public void setUserId(User user) {
+	public void setUser(User user) {
 		User = user;
 	}
+	
+	
 	
 	
 }

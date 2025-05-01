@@ -1,5 +1,5 @@
 package com.example.BlogAPI.enitities;
-
+ 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,9 +31,12 @@ public class Comment {
 	@CreationTimestamp
 	private LocalDateTime updatedAt;
 	
+	
 	public Comment() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
+
 
 	public Comment(int id, String content, Post post, User user) {
 		super();
@@ -42,9 +45,50 @@ public class Comment {
 		this.post = post;
 		this.user = user;
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public Post getPost() {
+		return post;
+	}
+
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	
 	
 	
+		
 
 }
