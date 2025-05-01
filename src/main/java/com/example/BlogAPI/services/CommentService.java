@@ -1,7 +1,6 @@
 package com.example.BlogAPI.services;
 
-import java.util.List;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -46,7 +45,7 @@ public class CommentService {
         return commentRepository.findByPost(post, pageable);
     }
 
-    public String deleteComment(int commentId, int userId) {
+    public Comment deleteComment(int commentId, int userId) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -55,6 +54,6 @@ public class CommentService {
 
         commentRepository.delete(comment);
         
-        return "Comment Delete success..!";
+        return comment;
     }
 }

@@ -2,8 +2,7 @@ package com.example.BlogAPI.controllers;
 
 import com.example.BlogAPI.Utilies.ApiResponse;
 import com.example.BlogAPI.enitities.Like;
-import com.example.BlogAPI.enitities.Post;
-import com.example.BlogAPI.services.LikeService;
+ import com.example.BlogAPI.services.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
